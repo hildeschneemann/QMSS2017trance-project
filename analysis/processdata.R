@@ -1,7 +1,7 @@
 
 setwd("./QMSS2017/groupproject/QMSS2017trance-project")
 #read in datafile from dplace for all societies
-dplace <- read.csv("./rawData/dplace-societies_masterdata.csv", sep=",", skip=1)
+dplace <- read.csv("./rawData/dplace-societies_masterdata.csv", sep=",", skip=1, stringsAsFactors = F)
 
 #select the atlantic congo groups from the data file
 rows <- which(dplace$Language.family == "Atlantic-Congo")
@@ -17,15 +17,31 @@ ac_nona <- ac_nona[,-1]
 write.csv(ac_nona, file="atlanticCongoprocessed.csv", quote=FALSE)
 
 
-ac_phylo <- read.nexus(file="./rawData/bantu.trees-d-place.NEXUS")
-tipnames <- ac_phylo$tip.label
+ac_phylo <- read.nexus(file="./rawData/grollemund_et_al2015/original/grollemund.mcct.trees")
+
+
+convertnames <- read.csv(file = "./rawData/grollemund_et_al2015/taxa.csv", stringsAsFactors = F)
+#convertnames$glottocode[which(tipnames %in% convertnames$taxon)]
+#ac_phylo$tip.label <- convertnames$glottocode
+
+#remove society names to keep only society.id
+tipnames.short <- sub(".*_", replacement="", x=tipnames)
 
 setdiff(ac_nona$Society.id, tipnames.short)
 
+#select tips that are present in datafile
+#setdiff(ac_nona$Glottolog.language.dialect.id, convertnames$glottocode)
+
+tipstodrop <- setdiff(convertnames$glottocode, ac_nona$Glottolog.language.dialect.id)
+tipstodrop2 <- convertnames$taxon[which(convertnames$glottocode %in% tipstodrop)]
+
+ac_phylo2 <- drop.tip(ac_phylo, tipstodrop2)
+
 ac_nona$Original.society.name <- as.character(ac_nona$Original.society.name)
 ac_nona$Society.id <- as.character(ac_nona$Society.id)
+ac_nona$Preferred.society.name <- as.character(ac_nona$Preferred.society.name)
 
-tipnames.short <- sub("_.*", replacement="", x=tipnames)
+
 
 
 library(MCMCglmm)
