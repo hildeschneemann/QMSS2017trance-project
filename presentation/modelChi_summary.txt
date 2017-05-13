@@ -1,0 +1,25 @@
+> summary(modelChi)
+
+ Iterations = 1000001:9999001
+ Thinning interval  = 1000
+ Sample size  = 9000 
+
+ DIC: 51.96168 
+
+ G-structure:  ~treelabel
+
+          post.mean  l-95% CI u-95% CI eff.samp
+treelabel     1.926 1.739e-07    6.155     9000
+
+ R-structure:  ~units
+
+      post.mean l-95% CI u-95% CI eff.samp
+units         1        1        1        0
+
+ Location effects: trance_binary ~ Variable..Precipitation.Constancy... 
+
+                                     post.mean l-95% CI u-95% CI eff.samp  pMCMC  
+(Intercept)                             4.5355  -0.5575   8.9796     8732 0.0633 .
+Variable..Precipitation.Constancy...   -8.5446 -17.9145   0.4503     8733 0.0631 .
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1

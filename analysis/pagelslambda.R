@@ -7,19 +7,25 @@ par(mfrow=c(1,2))#remember from day1 session2 that this sets the graphical param
 plot(finaltree)
 plot(lambda0)
 
+
+data4function <- bantudata$trance_binary
+names(data4function) <- bantudata$treelabel
+data4function <- as.matrix(data4function)
 #Now find the maximum likelihood estimate of lambda for diet 
-trance_lambda<-fitDiscrete(finaltree, bantudata$trance_binary, treeTransform="lambda")
+trance_lambda<-fitDiscrete(finaltree, data4function, transform="lambda")
+
+summary(trance_lambda)
 
 # The output returns a list with 4 components. The two of interest are the maximum likelihood estimate of Lambda ($treeParam)  and the negative log likelihood ($lnl). 
 
 # To see if this indicates significant phylogenetic signal we can compare the negative log likelihood when there is no signal i.e. using the tree transformed lambda=0, to that estimated from the original topology.
 
-diet_lambda0<-fitDiscrete(lambda0, mydata$diet)
+trance_lambda0<-fitDiscrete(lambda0, data4function)
 
 # You can then compare the negative log likelihood from this analysis to that when lambda was estimated using the original tree topology using a likelihood ratio test (or AIC etc.).
 
 # Likelihood ratio test approximated by a chi-squared distribution
-1-pchisq(2*(diet_lambda0$Trait1$lnl-diet_lambda$Trait1$lnl),1)
+1-pchisq(2*(trance_lambda0$opt$lnL-trance_lambda$opt$lnL),1)
 
-# (3) Testing whether rates have increased or slowed over evolutionary time with the fitDiscrete function in geiger. If rates decrease over time it is a signature of adaptive radiation if the traits are ecologically relevant.
-
+library(caper)
+phylo.d(data=bantudata, finaltree, names.col=treelabel, binvar=trance_binary)

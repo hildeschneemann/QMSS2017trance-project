@@ -94,9 +94,6 @@ HPDinterval(lambda)
 
 
 
-install.packages("ggtree")
-library(ggtree)
-
 
 
 prior.bantuChi<-list(G=list(G1=list(V=1,nu=1000, alpha.mu=0, alpha.V=1)),R=list(V=1,fix=1))
@@ -126,3 +123,8 @@ HPDinterval(lambda)
 plot(finaltree,show.tip.label=FALSE)
 tiplabels(pie=bantudata$trance_binary, cex=0.4)
 #add.simmap.legend(colors=cols) #click where you want to draw your legend!
+
+plot(finaltree,show.tip.label=FALSE)
+tiplabels(pie=bantudata$Variable..Precipitation.Constancy..., piecol=, cex=0.4)
+
+
