@@ -1,0 +1,2 @@
+> 1-pchisq(2*(trance_lambda$opt$lnL-trance_lambda0$opt$lnL),1)
+[1] 0.05352969

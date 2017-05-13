@@ -20,12 +20,10 @@ summary(trance_lambda)
 
 # To see if this indicates significant phylogenetic signal we can compare the negative log likelihood when there is no signal i.e. using the tree transformed lambda=0, to that estimated from the original topology.
 
-trance_lambda0<-fitDiscrete(lambda0, data4function)
+trance_lambda0<-fitDiscrete(lambda0, data4function, transform="lambda")
 
 # You can then compare the negative log likelihood from this analysis to that when lambda was estimated using the original tree topology using a likelihood ratio test (or AIC etc.).
 
 # Likelihood ratio test approximated by a chi-squared distribution
 1-pchisq(2*(trance_lambda0$opt$lnL-trance_lambda$opt$lnL),1)
 
-library(caper)
-phylo.d(data=bantudata, finaltree, names.col=treelabel, binvar=trance_binary)
