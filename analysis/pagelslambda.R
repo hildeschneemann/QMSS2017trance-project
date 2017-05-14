@@ -25,5 +25,5 @@ trance_lambda0<-fitDiscrete(lambda0, data4function, transform="lambda")
 # You can then compare the negative log likelihood from this analysis to that when lambda was estimated using the original tree topology using a likelihood ratio test (or AIC etc.).
 
 # Likelihood ratio test approximated by a chi-squared distribution
-1-pchisq(2*(trance_lambda0$opt$lnL-trance_lambda$opt$lnL),1)
+1-pchisq(2*(trance_lambda$opt$lnL-trance_lambda0$opt$lnL),1)
 
